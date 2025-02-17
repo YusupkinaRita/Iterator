@@ -28,6 +28,37 @@ private:
     pointer _ptr;
 
 };
+
+struct  ConstIterator
+{
+    using iterator_category = std::forward_iterator_tag;
+    using difference_type = std::ptrdiff_t;
+    using value_type = int;
+    using pointer= const int*;
+    using reference = const int&;
+    ConstIterator(pointer ptr):_ptr(ptr){};
+    const reference operator*()const{return *_ptr;};
+    const pointer operator->()const{return _ptr;};
+    ConstIterator operator++(int){
+        ConstIterator tmp=*this;
+        ++(*this);
+        return tmp;
+    };
+    ConstIterator& operator++(){
+        _ptr++;
+        return *this;
+    }
+    friend bool operator==(const ConstIterator& a,const ConstIterator& b){
+        return a._ptr==b._ptr;
+    }
+    friend bool operator!=(const ConstIterator& a,const ConstIterator& b){
+        return a._ptr!=b._ptr;
+    }
+private:
+    pointer _ptr;
+
+};
+
 class IntArr{
 
 private:
@@ -39,6 +70,14 @@ public:
     }
     Iterator end(){
         return Iterator(& _data[9]);
+        
+    }
+    ConstIterator cbegin(){
+        return ConstIterator(& _data[0]);
+
+    }
+    ConstIterator cend(){
+        return ConstIterator(& _data[9]);
         
     }
 
