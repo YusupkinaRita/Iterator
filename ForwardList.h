@@ -53,13 +53,21 @@ public:
     // ForwardList(const ForwardList tmp);
     // ForwardList& operator=(const ForwardList& p);
     void Add(Node<T> node){
-        ListIterator<T> lit = ListIterator<T>(_head);
+        if(_head!=nullptr){
+            ListIterator<T> lit = ListIterator<T>(_head);
 
-        while((*lit).Next!=nullptr){
-            lit++;
+            while((*lit).Next!=nullptr){
+                lit++;
+            }
+
+            (*lit).Next=&node;
+            _tail=&node;
         }
+        else{
+            _head=&node;
+            _tail=&node;
 
-        (*lit).Next=&node;
+        }
     }
 
 
@@ -71,6 +79,22 @@ public:
 
     }
     void Delete(Node<T> node){
+            ListIterator<T> lit = ListIterator<T>(_head);
+            Node<T> tmp1;
+
+            while((*lit).Next!=nullptr){
+                if(*((*lit).Next)==node){
+                    tmp1=*lit;
+                    break;
+                }
+                lit++;
+            }
+            
+            Node<T> tmp2=*(*(tmp1.Next)->Next);
+            tmp1.Next=&tmp2;
+
+
+        
         
     }
     bool Contains(Node<T> node){
