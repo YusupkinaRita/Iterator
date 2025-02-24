@@ -5,8 +5,12 @@
 
 int main(){
     ForwardList<int> list;
+    Node<int> n{.Data = 15, .Next = nullptr};
     
-    list.Add(Node<int> {.Data = 15, .Next = nullptr});
+    list.Add(n);
+    std::cout<<list.Contains(15)<<std::endl;
+    //list.Delete(n);
+    //std::cout<<list<<std::endl;
     // for(Iterator i=int_ar.begin();i!=int_ar.end();i++){
     //     *i=0;
     //     std::cout<<*i<<std::endl;

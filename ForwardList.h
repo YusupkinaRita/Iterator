@@ -4,6 +4,9 @@ template<class T>
 struct Node{
     T Data;
     Node* Next=nullptr;
+
+   
+    
 };
 
 template<class T>
@@ -50,11 +53,9 @@ public:
         _tail=nullptr;
     }
     
-    // ForwardList(const ForwardList tmp);
-    // ForwardList& operator=(const ForwardList& p);
     void Add(Node<T> node){
         if(_head!=nullptr){
-            ListIterator<T> lit = ListIterator<T>(_head);
+            ListIterator<T> lit = begin();
 
             while((*lit).Next!=nullptr){
                 lit++;
@@ -78,31 +79,54 @@ public:
         return ListIterator<T>(_tail->Next);
 
     }
-    void Delete(Node<T> node){
+    void Delete(T data){
             ListIterator<T> lit = ListIterator<T>(_head);
             Node<T> tmp1;
+            if(*(_head).Data==data)
+                _head=nullptr;
 
             while((*lit).Next!=nullptr){
-                if(*((*lit).Next)==node){
+                if(*((*lit).Next)==data){
                     tmp1=*lit;
                     break;
                 }
                 lit++;
             }
-            
-            Node<T> tmp2=*(*(tmp1.Next)->Next);
-            tmp1.Next=&tmp2;
+            if((tmp1.Next)->Next!=nullptr){
+                Node<T> tmp2=*(*(tmp1.Next)->Next);
+                tmp1.Next=&tmp2;
+            }
+            else
+                tmp1.Next=nullptr;
+
 
 
         
         
     }
-    bool Contains(Node<T> node){
-        for (ListIterator<T> lit:*this){
-            if(lit._node->Data==node.Data)
-            return true;
+    bool Contains(T data){
+        for(auto lit=begin();lit!=end();lit++){
+            T x=(*lit).Data;
+            if(x==data)
+                return true;
+            lit++;
         }
         return false;
+    }
+    
+
+    friend std::ostream& operator<<(std::ostream& os, const ForwardList& l){
+        ListIterator<T> lit = ListIterator<T>(l._head);
+
+        while(lit!=nullptr){
+            os<<lit._node->Data<<" ";
+        
+            lit++;
+        }
+        std::cout<<std::endl;
+            
+        
+        return os;
     }
 
 
