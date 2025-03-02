@@ -4,6 +4,12 @@ template<class T>
 struct Node{
     T Data;
     Node* Next=nullptr;
+    Node(T data) {
+        Data = data;
+    }
+    Node(){
+
+    }
 
    
     
@@ -53,21 +59,13 @@ public:
         _tail=nullptr;
     }
     
-    void Add(Node<T> node){
-        if(_head!=nullptr){
-            ListIterator<T> lit = begin();
-
-            while((*lit).Next!=nullptr){
-                lit++;
-            }
-
-            (*lit).Next=&node;
-            _tail=&node;
-        }
-        else{
-            _head=&node;
-            _tail=&node;
-
+    void Add(T data) {
+        if (_head == nullptr) {
+            _head = new Node<T>(data);
+            _tail = _head;
+        } else {
+            _tail->Next = new Node<T>(data);
+            _tail = _tail->Next;
         }
     }
 
@@ -80,36 +78,47 @@ public:
 
     }
     void Delete(T data){
-            ListIterator<T> lit = ListIterator<T>(_head);
-            Node<T> tmp1;
-            if(*(_head).Data==data)
-                _head=nullptr;
+        Node<T>* tmp1;
+        bool delnum_ishere=0;
+        if((*_head).Data==data){
+            _head=nullptr;
+        }
+        else{
+            Node<T>* prev;
+            for(auto lit=begin();lit!=end();lit++){
+                if(lit == begin())
+                    prev=&(*lit);
+                else{
+                    T x=(*lit).Data;
+                    if(x==data){
+                        delnum_ishere=true;
+                        tmp1=prev;
+                        break;
+                    }
+                    prev=&(*lit);
+                }      
+            }
 
-            while((*lit).Next!=nullptr){
-                if(*((*lit).Next)==data){
-                    tmp1=*lit;
-                    break;
+            if(delnum_ishere){
+                if((tmp1->Next)->Next!=nullptr){
+                    Node<T>* tmp2=(tmp1->Next)->Next;
+                    tmp1->Next=tmp2;
                 }
-                lit++;
-            }
-            if((tmp1.Next)->Next!=nullptr){
-                Node<T> tmp2=*(*(tmp1.Next)->Next);
-                tmp1.Next=&tmp2;
-            }
+                else
+                    tmp1->Next=nullptr;
+                }
+            
             else
-                tmp1.Next=nullptr;
+                std::cout<<"the object you want to delete is not in the queue"<<std::endl;
 
+        }
 
-
-        
-        
     }
     bool Contains(T data){
         for(auto lit=begin();lit!=end();lit++){
             T x=(*lit).Data;
             if(x==data)
                 return true;
-            lit++;
         }
         return false;
     }
@@ -119,11 +128,10 @@ public:
         ListIterator<T> lit = ListIterator<T>(l._head);
 
         while(lit!=nullptr){
-            os<<lit._node->Data<<" ";
+            os<<(*lit).Data<<" ";
         
             lit++;
         }
-        std::cout<<std::endl;
             
         
         return os;
