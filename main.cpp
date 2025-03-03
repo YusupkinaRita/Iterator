@@ -11,13 +11,13 @@ int main(){
         list.Add(i);
     }
     std::cout<<list<<std::endl;
-    std::cout<<(list.Contains(3)? "yes":"no")<<std::endl;
+    //std::cout<<(list.Contains(3)? "yes":"no")<<std::endl;
     list.Delete(15);
     list.Delete(3);
     std::cout<<list<<std::endl;
-    list.Delete(6);
+    list.Delete(1);
     std::cout<<list<<std::endl;
-    std::cout<<(list.Contains(3)? "yes":"no")<<std::endl;
+    //std::cout<<(list.Contains(3)? "yes":"no")<<std::endl;
     //std::cout<<list.Contains(15)<<std::endl;
     //list.Delete(n);
     //std::cout<<list<<std::endl;
