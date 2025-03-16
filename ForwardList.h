@@ -113,13 +113,31 @@ public:
 
     // }
     void Delete(T data){
-        
+        Node<T>* prev=_head;
+        Node<T>* next_node;
+        for(auto lit=begin();lit!=end();lit++){
+            if(lit==begin()){
+                if(*lit==data){
+                    _head=_head->Next;
+                    return ;
+                }
+            }
+            else{
+                if(*lit==data){
+                    next_node=prev->Next->Next;
+                    prev->Next=next_node;
+                    return ;
+                }
+                prev=prev->Next;
 
+            }
+        }
+        std::cout<<"the object you want to delete is not in the queue"<<std::endl;
+        
     }
     bool Contains(T data){
         for(auto lit=begin();lit!=end();lit++){
-            T x=(*lit).Data;
-            if(x==data)
+            if(*lit==data)
                 return true;
         }
         return false;
