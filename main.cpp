@@ -16,8 +16,13 @@ int main(){
     list.Delete(3);
     std::cout<<list<<std::endl;
     list.Delete(6);
+    list.Delete(6);
+    list.Add(6);
+    list.Add(6);
     std::cout<<list<<std::endl;
-    std::cout<<(list.Contains(3)? "yes":"no")<<std::endl;
+    list.Delete(6);    list.Delete(6);    list.Delete(6);    list.Delete(6);
+    std::cout<<(list.Contains(6)? "yes":"no")<<std::endl;
+    std::cout<<list<<std::endl;
     //list.Delete(n);
     //std::cout<<list<<std::endl;
     // for(Iterator i=int_ar.begin();i!=int_ar.end();i++){

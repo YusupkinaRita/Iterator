@@ -124,9 +124,17 @@ public:
             }
             else{
                 if(*lit==data){
-                    next_node=prev->Next->Next;
-                    prev->Next=next_node;
-                    return ;
+                    if(lit==_tail){
+                        _tail=prev;
+                        return ;
+                    }
+                    else{
+                        next_node=prev->Next->Next;
+                        prev->Next=next_node;
+                        if(lit==_tail)
+                            _tail=prev;
+                        return ;
+                    }
                 }
                 prev=prev->Next;
 
